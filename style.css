@@ -1,0 +1,509 @@
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+}
+
+:root {
+    --primary: #d4af37;
+    --secondary: #1a1a1a;
+    --light: #f8f9fa;
+    --dark: #121212;
+    --gray: #6c757d;
+    --contact-blue: #1e4a7a;
+}
+
+html {
+    scroll-behavior: smooth;
+    font-size: 16px; 
+}
+
+body {
+    background-color: var(--dark);
+    color: var(--light);
+    line-height: 1.6;
+    overflow-x: hidden;
+}
+
+/* Container principal */
+.container {
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 0 20px;
+}
+
+/* Seções */
+section {
+    padding: 5rem 0; 
+}
+
+/* Cabeçalho/Hero (Inalterado) */
+.hero {
+    background: linear-gradient(rgba(0, 0, 0, 0.7), rgba(0, 0, 0, 0.7)), 
+                url('https://images.unsplash.com/photo-1554224155-6726b3ff858f?ixlib=rb-1.2.1&auto=format&fit=crop&w=1600&q=80');
+    background-size: cover;
+    background-position: center;
+    background-attachment: fixed;
+    min-height: 100vh;
+    display: flex;
+    align-items: center;
+    text-align: center;
+    position: relative;
+}
+
+.hero-content {
+    max-width: 800px;
+    margin: 0 auto;
+    padding: 0 20px;
+}
+
+.hero h1 {
+    font-size: clamp(2.5rem, 5vw, 3.5rem); 
+    margin-bottom: 1.25rem;
+    color: var(--primary);
+    font-weight: 700;
+    text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.5);
+}
+
+.hero p {
+    font-size: clamp(1rem, 2vw, 1.3rem); 
+    margin-bottom: 2rem;
+    color: var(--light);
+}
+
+.cta-button {
+    display: inline-block;
+    background-color: var(--primary);
+    color: var(--dark);
+    padding: 0.75rem 1.875rem;
+    border-radius: 1.875rem;
+    text-decoration: none;
+    font-weight: 600;
+    font-size: clamp(0.9rem, 2vw, 1.1rem);
+    transition: all 0.3s ease;
+    border: 2px solid var(--primary);
+}
+
+.cta-button:hover {
+    background-color: transparent;
+    color: var(--primary);
+    transform: translateY(-3px);
+    box-shadow: 0 10px 20px rgba(212, 175, 55, 0.3);
+}
+
+/* Navbar responsiva */
+nav {
+    position: fixed;
+    top: 0;
+    width: 100%;
+    background: rgba(18, 18, 18, 0.95);
+    z-index: 1000;
+    backdrop-filter: blur(10px);
+    border-bottom: 1px solid rgba(212, 175, 55, 0.2);
+    height: 4.5rem; /* Altura desktop: 72px */
+}
+
+.nav-container {
+    max-width: 1200px;
+    margin: 0 auto;
+    display: flex;
+    /* Centraliza o Menu quando o logo é removido */
+    justify-content: center; 
+    align-items: center;
+    padding: 0 1.25rem; 
+    height: 100%;
+}
+
+/* O nav-logo foi REMOVIDO */
+
+/* Menu no Desktop e Mobile (Flexível/Rolável) */
+.nav-menu {
+    display: flex;
+    gap: 2.5rem;
+    flex-grow: 1; 
+    justify-content: center; /* Centraliza no desktop */
+    align-items: center;
+    overflow-x: hidden; 
+}
+
+.nav-link {
+    color: var(--light);
+    text-decoration: none;
+    font-weight: 600;
+    font-size: 1rem;
+    transition: color 0.3s ease;
+    position: relative;
+    padding: 0.5rem 0; 
+    flex-shrink: 0; 
+}
+
+.nav-link:hover {
+    color: var(--primary);
+}
+
+.nav-link::after {
+    content: '';
+    position: absolute;
+    width: 0;
+    height: 2px;
+    bottom: 0px; 
+    left: 0;
+    background-color: var(--primary);
+    transition: width 0.3s ease;
+}
+
+.nav-link:hover::after {
+    width: 100%;
+}
+
+.nav-link.active {
+    color: var(--primary);
+}
+
+/* Seção Serviços (Inalterado) */
+#servicos {
+    background-color: var(--secondary);
+}
+
+.section-title {
+    text-align: center;
+    margin-bottom: 3.75rem;
+    color: var(--primary);
+    font-size: clamp(2rem, 4vw, 2.5rem);
+    position: relative;
+}
+
+.section-title::after {
+    content: '';
+    position: absolute;
+    width: 5rem;
+    height: 3px;
+    background-color: var(--primary);
+    bottom: -0.9375rem;
+    left: 50%;
+    transform: translateX(-50%);
+}
+
+.services-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(min(300px, 100%), 1fr));
+    gap: 1.875rem;
+}
+
+.service-card {
+    background-color: rgba(255, 255, 255, 0.05);
+    padding: 2.5rem 1.875rem;
+    border-radius: 0.625rem;
+    text-align: center;
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+    border: 1px solid rgba(212, 175, 55, 0.1);
+}
+
+.service-card:hover {
+    transform: translateY(-0.625rem);
+    box-shadow: 0 15px 30px rgba(0, 0, 0, 0.2);
+    border-color: rgba(212, 175, 55, 0.3);
+}
+
+.service-icon {
+    font-size: 2.5rem; 
+    color: var(--primary);
+    margin-bottom: 1.25rem;
+}
+
+.service-card h3 {
+    color: var(--primary);
+    margin-bottom: 0.9375rem;
+    font-size: 1.5rem;
+}
+
+.service-card p {
+    color: var(--gray);
+}
+
+/* Seção Sobre (Inalterado) */
+#sobre {
+    background-color: var(--dark);
+}
+
+.about-content {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 3.125rem;
+    align-items: center;
+}
+
+.about-text h2 {
+    color: var(--primary);
+    margin-bottom: 1.25rem;
+    font-size: clamp(1.8rem, 3.5vw, 2.2rem);
+}
+
+.about-text p {
+    margin-bottom: 1.25rem;
+    color: var(--light);
+}
+
+.about-features {
+    list-style: none;
+    margin-top: 1.875rem;
+}
+
+.about-features li {
+    margin-bottom: 0.9375rem;
+    display: flex;
+    align-items: center;
+    color: var(--light);
+}
+
+.about-features li i {
+    color: var(--primary);
+    margin-right: 0.625rem;
+    font-size: 1.2rem;
+}
+
+.about-image {
+    border-radius: 0.625rem;
+    overflow: hidden;
+    box-shadow: 0 15px 30px rgba(0, 0, 0, 0.3);
+}
+
+.about-image img {
+    width: 100%;
+    height: auto;
+    display: block;
+    transition: transform 0.5s ease;
+}
+
+.about-image:hover img {
+    transform: scale(1.05);
+}
+
+/* Seção Contato (Inalterado) */
+#contato {
+    background: var(--secondary);
+    padding: 5rem 0;
+}
+
+.contact-title {
+    color: var(--primary);
+    font-size: clamp(2rem, 4vw, 2.5rem);
+    font-weight: 600;
+    text-align: left;
+    margin-bottom: 0.9375rem;
+    padding-left: 1.25rem;
+}
+
+.contact-divider {
+    width: 3.75rem;
+    height: 3px;
+    background-color: var(--primary);
+    margin-left: 1.25rem;
+    margin-bottom: 3.125rem;
+}
+
+.contact-info {
+    display: flex;
+    flex-direction: column;
+    gap: 0;
+    max-width: 37.5rem;
+    margin: 0 auto;
+}
+
+.contact-item {
+    display: flex;
+    align-items: flex-start;
+    gap: 1.25rem;
+    padding: 1.5625rem 1.25rem;
+    transition: all 0.3s ease;
+}
+
+.contact-item:hover {
+    background-color: rgba(212, 175, 55, 0.05);
+}
+
+.contact-icon-wrapper {
+    flex-shrink: 0;
+    width: 1.5rem;
+    height: 1.5rem;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.contact-icon {
+    width: 1.5rem;
+    height: 1.5rem;
+    color: var(--primary);
+}
+
+.contact-text {
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+}
+
+.contact-link {
+    color: var(--light);
+    text-decoration: none;
+    font-size: clamp(1rem, 2vw, 1.1rem);
+    line-height: 1.6;
+    transition: color 0.3s ease;
+}
+
+.contact-link:hover {
+    color: var(--primary);
+}
+
+/* Botões fixos - COR ALTERADA para LIGHT */
+.fixed-buttons {
+    position: fixed;
+    bottom: 1.875rem;
+    right: 1.875rem;
+    display: flex;
+    flex-direction: column;
+    gap: 0.9375rem;
+    z-index: 900; 
+}
+
+.fixed-button {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width: 3.75rem;
+    height: 3.75rem;
+    /* COR ALTERADA AQUI: de var(--primary) para var(--light) */
+    background: var(--light); 
+    border-radius: 50%;
+    text-decoration: none;
+    transition: all 0.3s ease;
+    box-shadow: 0 5px 15px rgba(0, 0, 0, 0.4); /* Sombra mais escura */
+}
+
+.fixed-button:hover {
+    /* COR HOVER MANTIDA, mas pode ser ajustada se necessário */
+    background: var(--primary);
+    transform: scale(1.1);
+    box-shadow: 0 8px 20px rgba(212, 175, 55, 0.6);
+}
+
+.fixed-button:hover i {
+    color: var(--light); /* Garante que o ícone fique branco no hover */
+}
+
+.fixed-button i {
+    /* O ícone fica dark (preto) por padrão */
+    color: var(--dark);
+}
+
+/* Footer (Inalterado) */
+footer {
+    background-color: var(--dark);
+    padding: 2.5rem 0;
+    text-align: center;
+    border-top: 1px solid rgba(212, 175, 55, 0.2);
+}
+
+.footer-content {
+    max-width: 37.5rem;
+    margin: 0 auto;
+}
+
+.footer-logo {
+    color: var(--primary);
+    font-size: 1.8rem;
+    font-weight: 700;
+    margin-bottom: 1.25rem;
+}
+
+.footer-text {
+    color: var(--gray);
+    margin-bottom: 1.25rem;
+}
+
+.copyright {
+    color: var(--gray);
+    font-size: 0.9rem;
+}
+
+/* ========== RESPONSIVIDADE (Menu Scrollable/Flex) ========== */
+
+/* Tablet e Mobile (até 992px) */
+@media (max-width: 992px) {
+    /* Diminui a altura da nav em tablets */
+    nav {
+        height: 4rem; /* 64px */
+    }
+    
+    .nav-container {
+        /* Alinha o menu à esquerda agora que o logo foi removido */
+        justify-content: flex-start;
+        padding: 0 0.8rem; 
+    }
+    
+    /* Configuração do Menu Flexível/Rolável */
+    .nav-menu {
+        flex-grow: 1;
+        /* Garante que o menu comece à esquerda, se centralização não for suficiente */
+        justify-content: flex-start;
+        overflow-x: auto; 
+        scrollbar-width: none; 
+        -ms-overflow-style: none; 
+        
+        padding-left: 0.5rem; 
+        padding-right: 0.8rem;
+    }
+    
+    /* Esconde a barra de rolagem horizontal no Chrome/Safari/Opera */
+    .nav-menu::-webkit-scrollbar {
+        display: none;
+    }
+    
+    .nav-menu .nav-link {
+        gap: 1.5rem; 
+        font-size: 1rem;
+        padding: 0.5rem 0.8rem;
+    }
+
+    .about-content {
+        grid-template-columns: 1fr;
+        gap: 2.5rem;
+    }
+    
+    .about-image {
+        order: -1;
+    }
+}
+
+/* Celulares (até 576px) */
+@media (max-width: 576px) {
+    html {
+        font-size: 14px; 
+    }
+    
+    /* Diminui ainda mais a altura da nav */
+    nav {
+        height: 3.5rem; /* 56px */
+    }
+
+    .nav-menu {
+        padding-left: 0.3rem; 
+        padding-right: 0.5rem;
+    }
+
+    .nav-menu .nav-link {
+        font-size: 0.95rem;
+        padding: 0.5rem 0.6rem;
+    }
+
+    /* Outros ajustes de responsividade */
+    .container {
+        padding: 0 1rem;
+    }
+    
+    .fixed-buttons {
+        bottom: 1rem;
+        right: 1rem;
+    }
+}
