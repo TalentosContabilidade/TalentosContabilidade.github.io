@@ -28,7 +28,7 @@
 }
 
 /* Variáveis de altura para referência no mobile */
-/* Logo Height (fixed-top-logo): 66px */
+/* Logo Height: 66px */
 /* Nav Height: 48px */
 
 @media (max-width: 800px) {
@@ -60,9 +60,7 @@
     .fixed-top-logo {
         display: none !important;
     }
-    nav .nav-logo { 
-        display: flex !important; /* Mostra a logo dentro do nav no desktop */
-    }
+    nav .nav-logo { display: flex !important; }
     nav {
         top: 0 !important; /* Volta ao normal no desktop */
         margin-top: 0 !important;
@@ -72,7 +70,7 @@
     }
 }
 
-/* O RESTANTE DE TODO O SEU CSS ORIGINAL AQUI */
+/* O RESTANTE DE TODO O SEU CSS ORIGINAL AQUI, INCLUINDO AS QUERIES E REGULARIZAÇÕES. */
 
 * {
     margin: 0;
@@ -90,7 +88,7 @@
     --light-gray: #e9ecef;
     --dark: #121212;
     --gray: #8a8d93;
-    --transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275), opacity 0.8s ease, transform 0.8s ease;
+    --transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275), opacity 0.8s ease, transform 0.8s ease; /* Adicionado transições para fade-up */
 }
 
 html {
@@ -147,22 +145,24 @@ nav {
     -webkit-backdrop-filter: blur(10px);
     z-index: 1000;
     border-bottom: 1px solid rgba(212, 175, 55, 0.1);
-    height: 7rem; /* Altura original no desktop */
+    height: 7rem;
     display: flex;
     align-items: center;
     transition: all 0.3s ease-in-out;
     padding: 0 1rem;
 }
 nav.scrolled {
-    height: 5.5rem; /* Altura ao rolar no desktop */
+    height: 5.5rem;
     background: rgba(18, 18, 18, 0.98);
     box-shadow: 0 5px 20px rgba(0, 0, 0, 0.3);
 }
+
+/* CORREÇÃO APLICADA AQUI: Uso de CSS Grid para centralizar o menu */
 .nav-container {
     max-width: 1200px;
     margin: 0 auto;
-    display: flex;
-    justify-content: space-between;
+    display: grid; /* ALTERADO: Usa Grid para desktop */
+    grid-template-columns: 170px 1fr 170px; /* Colunas: Logo(170px) - Menu Central(flexível) - Espaçador(170px) */
     align-items: center;
     width: 100%;
     position: relative;
@@ -170,6 +170,7 @@ nav.scrolled {
 .nav-logo {
     display: flex;
     align-items: center;
+    width: 170px; /* Definindo explicitamente a largura para a logo */
 }
 .nav-logo img {
     height: 5rem;
@@ -183,9 +184,9 @@ nav.scrolled .nav-logo img {
 .nav-menu {
     display: flex;
     gap: 2rem;
-    justify-content: center;
-    flex-grow: 1;
+    justify-content: center; /* Mantém o menu centralizado dentro do 1fr */
     align-items: center;
+    /* Removido flex-grow: 1 (redundante no grid 1fr) */
 }
 .nav-link {
     color: var(--light);
@@ -215,12 +216,33 @@ nav.scrolled .nav-logo img {
     width: 100%;
 }
 .nav-spacer {
-    width: 170px; /* Espaçamento igual ao da logo para centralizar o menu */
+    width: 170px; /* Mantido: Ocupa a terceira coluna */
     flex-shrink: 0;
 }
 
-/* RESPONSIVO NAVBAR (Mobile) */
+/* Logo centralizada só no mobile (ESTRUTURA ANTIGA, PREFERÊNCIA PARA .fixed-top-logo) */
+.nav-logo-mobile {
+    display: none;
+}
+.nav-logo-mobile img {
+    display: block;
+    margin: 0 auto;
+    height: 5rem;
+    min-width: 110px;
+    object-fit: contain;
+}
+
+/* RESPONSIVO NAVBAR (Modificado para usar .fixed-top-logo) */
 @media (max-width: 768px) {
+    /* Garante que o nav-container volte para flex no mobile para que o menu scrolle */
+    .nav-container {
+        display: flex; 
+        min-height: 48px !important;
+        height: 48px !important;
+        align-items: center !important;
+        padding: 0 10px;
+    }
+    
     /* Otimização da navbar no mobile */
     nav {
         height: 48px !important; /* Altura fixa para a barra de links */
@@ -230,13 +252,6 @@ nav.scrolled .nav-logo img {
         box-shadow: 0 5px 20px rgba(0, 0, 0, 0.3);
     }
 
-    .nav-container {
-        min-height: 48px !important;
-        height: 48px !important;
-        align-items: center !important;
-        padding: 0 10px;
-    }
-
     .nav-menu {
         margin-top: 0 !important;
         padding-top: 0 !important;
@@ -244,7 +259,7 @@ nav.scrolled .nav-logo img {
         align-items: center !important;
         gap: 1.2rem;
         flex-wrap: nowrap;
-        overflow-x: auto; /* Permite rolagem horizontal dos links */
+        overflow-x: auto;
         justify-content: flex-start;
         padding-bottom: 0;
     }
@@ -271,8 +286,8 @@ nav.scrolled .nav-logo img {
         box-shadow: none !important;
     }
 
-    .nav-logo, .nav-spacer {
-        display: none !important; /* Esconde a logo e o spacer no mobile */
+    .nav-logo, .nav-spacer, .nav-logo-mobile {
+        display: none !important;
     }
 }
 /* --- HERO ajute background mobile --- */
@@ -287,7 +302,7 @@ nav.scrolled .nav-logo img {
     align-items: center;
     text-align: center;
     position: relative;
-    padding-top: 7rem; /* Padrão Desktop */
+    padding-top: 7rem;
 }
 @media (min-width: 993px) {
     .hero {
@@ -873,7 +888,15 @@ footer {
     .section-title {
         margin-bottom: 3rem;
     }
-    
+
+    /* OTIMIZAÇÃO: Esta media query abaixo de 992px está sendo suplantada pela de 768px,
+       e é aqui que você estava perdendo a centralização no tablet horizontal.
+       Para garantir que a centralização grid funcione no desktop (>= 801px),
+       vamos deixar a regra principal de grid atuar. 
+       A regra de 992px precisa ser revisada, pois as regras originais de quebra
+       para mobile/tablet estavam na query de 768px. Mantenho a estrutura anterior:
+       Abaixo de 801px, o fixed-top-logo e a nav-bar móvel fixam no topo. */
+
     .about-content {
         grid-template-columns: 1fr;
         gap: 3rem;
@@ -910,7 +933,7 @@ footer {
     .hero {
         min-height: 70vh; /* Diminui para caber mais na tela inicial */
     }
-    
+
     /* Cards e Grids */
     .service-card, .testimonial-card {
         padding: 2rem 1.2rem;
@@ -971,11 +994,12 @@ footer {
     }
     
     .hero h1 {
+        /* MUDANÇA: Fonte maior que a anterior (2.2rem) para telas bem pequenas */
         font-size: 2.5rem; 
     }
     
     .hero p {
-        font-size: 1.1rem; 
+        font-size: 1.1rem; /* Fonte um pouco maior que a anterior (1rem) */
     }
     
     .cta-button {
