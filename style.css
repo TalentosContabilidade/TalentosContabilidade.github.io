@@ -1,49 +1,72 @@
 @import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Poppins:wght@700&display=swap');
 /* ===== Logo: Exibe acima do nav só no mobile, no nav só desktop ===== */
 .logo-header {
-    width: 100%;
+    width: 100vw;
     background: #181818;
     display: none;
     justify-content: center;
     align-items: center;
-    padding-top: 0.5rem;
-    padding-bottom: 0.3rem;
+    padding-top: 1.2rem;
+    padding-bottom: 1.2rem;
+    position: fixed;
+    top: 0;
+    left: 0;
+    z-index: 1200;
+    border-bottom: 1px solid rgba(212, 175, 55, 0.12);
 }
 
 .logo-header img {
-    width: 120px;
-    max-width: 48vw;
+    width: 180px;
     height: auto;
+    max-width: 60vw;
     object-fit: contain;
     display: block;
+    margin: 0 auto;
 }
 
+/* Mostra no mobile, esconde no desktop */
 @media (max-width: 800px) {
     .logo-header {
         display: flex;
     }
+    nav {
+        margin-top: 66px !important; /* Altura para não sobrepor o nav no mobile */
+    }
     nav .nav-logo {
         display: none !important;
     }
-    /* Compensa só pelo espaço do nav! */
+    /* Ajusta padding topo para hero não ficar atrás da logo no mobile */
     .hero {
-        padding-top: 2.5rem !important;
+        padding-top: 8.5rem !important;
     }
 }
-
 @media (min-width: 801px) {
     .logo-header {
         display: none !important;
     }
     nav .nav-logo { display: flex !important; }
+    nav {
+        margin-top: 0 !important;
+    }
 }
+
+/* ... resto do CSS igual ... */
+
+/* O RESTANTE DE TODO O SEU CSS ORIGINAL AQUI, INCLUINDO AS QUERIES E REGULARIZAÇÕES. 
+   Veja abaixo - tudo igual ao seu style anterior, exceto pelo início da logo/header que foi alterado
+   (ou seja, do .logo-header até o media querie do nav e hero) coloque o resto do seu código original 
+   depois daqui! */
+
+/* Adicione o restante do CSS copiado do seu arquivo anterior a partir daqui.
+   ========================================================================
+*/
+
 * {
     margin: 0;
     padding: 0;
     box-sizing: border-box;
     font-family: 'Inter', 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
 }
-
 :root {
     --primary: #d4af37;
     --primary-light: #e8c966;
