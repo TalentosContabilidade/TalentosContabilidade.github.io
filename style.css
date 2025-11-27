@@ -30,14 +30,17 @@
         display: flex;
     }
     nav {
-        margin-top: 66px !important; /* Altura para não sobrepor o nav no mobile */
+        /* A altura do logo-header (que é 66px no mobile) é usada aqui para que o nav comece ABAIXO dele */
+        top: 66px; 
     }
+    /* Oculta a logo que fica dentro da navbar no mobile */
     nav .nav-logo {
         display: none !important;
     }
-    /* Ajusta padding topo para hero não ficar atrás da logo no mobile */
+    /* Ajusta padding topo para hero não ficar atrás da logo e nav fixos no mobile */
+    /* Altura combinada do logo-header + nav (aprox 66px + 48px) + um pouco de margem (5.5rem = ~88px) */
     .hero {
-        padding-top: 8.5rem !important;
+        padding-top: 8.5rem !important; 
     }
 }
 @media (min-width: 801px) {
@@ -46,20 +49,16 @@
     }
     nav .nav-logo { display: flex !important; }
     nav {
+        top: 0 !important; /* Volta ao normal no desktop */
         margin-top: 0 !important;
+    }
+    .hero {
+        padding-top: 7rem !important; /* Valor padrão de desktop */
     }
 }
 
-/* ... resto do CSS igual ... */
 
-/* O RESTANTE DE TODO O SEU CSS ORIGINAL AQUI, INCLUINDO AS QUERIES E REGULARIZAÇÕES. 
-   Veja abaixo - tudo igual ao seu style anterior, exceto pelo início da logo/header que foi alterado
-   (ou seja, do .logo-header até o media querie do nav e hero) coloque o resto do seu código original 
-   depois daqui! */
-
-/* Adicione o restante do CSS copiado do seu arquivo anterior a partir daqui.
-   ========================================================================
-*/
+/* O RESTANTE DE TODO O SEU CSS ORIGINAL AQUI, INCLUINDO AS QUERIES E REGULARIZAÇÕES. */
 
 * {
     margin: 0;
@@ -77,7 +76,7 @@
     --light-gray: #e9ecef;
     --dark: #121212;
     --gray: #8a8d93;
-    --transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+    --transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275), opacity 0.8s ease, transform 0.8s ease; /* Adicionado transições para fade-up */
 }
 
 html {
@@ -124,7 +123,7 @@ section {
     border-radius: 2px;
 }
 
-/* --- Navbar Centralizada Mobile --- */
+/* --- Navbar --- */
 nav {
     position: fixed;
     top: 0;
@@ -206,7 +205,7 @@ nav.scrolled .nav-logo img {
     flex-shrink: 0;
 }
 
-/* Logo centralizada só no mobile */
+/* Logo centralizada só no mobile (ESTRUTURA ANTIGA, PREFERÊNCIA PARA .logo-header) */
 .nav-logo-mobile {
     display: none;
 }
@@ -218,91 +217,62 @@ nav.scrolled .nav-logo img {
     object-fit: contain;
 }
 
-/* RESPONSIVO NAVBAR */
+/* RESPONSIVO NAVBAR (Modificado para usar .logo-header) */
 @media (max-width: 768px) {
+    /* Otimização da navbar no mobile */
+    nav {
+        height: 48px !important; /* Altura fixa para a barra de links */
+        min-height: 48px !important;
+        padding: 0 !important;
+        background: rgba(18, 18, 18, 0.98) !important;
+        box-shadow: 0 5px 20px rgba(0, 0, 0, 0.3);
+    }
+
     .nav-container {
-        justify-content: center;
-        position: relative;
+        min-height: 48px !important;
+        height: 48px !important;
+        align-items: center !important;
+        padding: 0 10px;
     }
-    .nav-logo-mobile {
-        display: flex;
-        justify-content: center;
-        align-items: center;
-        flex: 1;
-        position: absolute;
-        left: 0;
-        right: 0;
-        top: 0;
-        bottom: 0;
-        z-index: 10;
-        pointer-events: none;
+
+    .nav-menu {
+        margin-top: 0 !important;
+        padding-top: 0 !important;
+        height: 48px !important;
+        align-items: center !important;
+        gap: 1.2rem;
+        flex-wrap: nowrap;
+        overflow-x: auto;
+        justify-content: flex-start;
+        padding-bottom: 0;
     }
-    .nav-logo-mobile img {
-        margin: 0 auto;
-        height: 4rem;
+    
+    .nav-menu::-webkit-scrollbar {
+        display: none; /* Esconde a scrollbar no Chrome/Safari */
     }
     .nav-menu {
-        margin-top: 7rem;
-        z-index: 5;
+        -ms-overflow-style: none; /* IE and Edge */
+        scrollbar-width: none; /* Firefox */
     }
-    .nav-spacer {
-        display: none;
+
+
+    .nav-link {
+        font-size: 0.95rem !important;
+        padding: 0.15rem 0 !important;
+        flex-shrink: 0;
     }
-    nav {
-        height: 7rem;
-        padding: 0;
+
+    /* Assegura que o navbar sempre tenha o fundo escuro sólido no mobile */
+    nav, nav.scrolled {
+        background: #181818 !important;
+        border-bottom: 1px solid rgba(212, 175, 55, 0.14) !important;
+        box-shadow: none !important;
     }
-    .nav-logo { display: none !important; }
+
+    .nav-logo, .nav-spacer, .nav-logo-mobile {
+        display: none !important;
+    }
 }
-/* =========================
-   Ajustes Navbar & Hero Mobile
-   ========================= */
-
-@media (max-width: 768px) {
-  nav {
-    height: 4.5rem !important;
-    min-height: 4.5rem !important;
-    padding: 0 !important;
-  }
-
-  .nav-container {
-    min-height: 4.5rem !important;
-    height: 4.5rem !important;
-    align-items: flex-start !important;
-  }
-  
-  .nav-logo-mobile img {
-    height: 2.9rem !important;
-    min-width: 90px !important;
-    max-width: 140px !important;
-    margin-top: 0.4rem !important;
-  }
-
-  .nav-menu {
-    margin-top: 0 !important;
-    padding-top: 0.2rem !important;
-    height: 4.5rem !important;
-    align-items: center !important;
-  }
-
-  .nav-link {
-    font-size: 0.98rem !important;
-    padding: 0.15rem 0 !important;
-  }
-
-  /* O navbar sempre fundo escuro sólido no mobile */
-  nav, nav.scrolled {
-    background: #181818 !important;
-    border-bottom: 1px solid rgba(212, 175, 55, 0.14) !important;
-    box-shadow: none !important;
-  }
-
-  /* Pula o conteúdo para não ficar escondido atrás do nav fixo */
-  .hero {
-    padding-top: 5.2rem !important;
-  }
-}
-
 /* --- HERO ajute background mobile --- */
 .hero {
     background: linear-gradient(135deg, rgba(0, 0, 0, 0.85), rgba(26, 26, 26, 0.9)),
@@ -967,49 +937,17 @@ footer {
     /* MUDANÇA: Altura mínima menor e padding de topo mais ajustado no Hero */
     .hero {
         min-height: 70vh; /* Diminui para caber mais na tela inicial */
-        padding-top: 8rem; 
+        /* padding-top: 8rem; - Ajustado no bloco de logo-header */
     }
 
-    /* Navegação - OTIMIZAÇÃO: Logo em cima, Menu em baixo com scroll horizontal */
-    .nav-container {
-        flex-direction: column;
-        align-items: center;
-        padding: 0;
-        width: 100%; /* Garante que o container use a largura total */
-    }
+    /* Navegação - OTIMIZAÇÃO: Já ajustada para ficar abaixo da logo */
     
-    nav {
-        height: auto;
-    }
-
-    .nav-logo {
-        padding: 0.5rem 0;
-        width: 100%; /* Garante centralização visual no topo */
-        text-align: center;
-    }
-    
-    .nav-menu {
-        width: 100%;
-        overflow-x: auto; /* Permite scroll horizontal */
-        flex-wrap: nowrap; /* Impede a quebra de linha forçada */
-        justify-content: flex-start;
-        padding: 0.5rem 20px;
-        gap: 1.5rem;
-        /* MUDANÇA: Adiciona um pequeno padding no final para não cortar o último item no scroll */
-        padding-right: 40px; 
-    }
-
     .nav-logo img {
         height: 4rem; /* Logo menor */
         margin-top: 0.5rem;
     }
     
-    .nav-link {
-        font-size: 0.95rem; /* Um pouco maior que o 0.9rem anterior */
-        flex-shrink: 0; /* Impede que o link diminua */
-        padding: 0.5rem 0;
-    }
-
+    /* Cards e Grids */
     .service-card, .testimonial-card {
         padding: 2rem 1.2rem;
     }
