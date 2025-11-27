@@ -1,9 +1,12 @@
 @import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Poppins:wght@700&display=swap');
-/* ===== Logo: Exibe acima do nav só no mobile, no nav só desktop ===== */
-.logo-header {
-    width: 100vw;
+
+/* ======================================================= */
+/* NOVO LOGOTIPO FIXO PARA MOBILE */
+/* ======================================================= */
+.fixed-top-logo {
+    width: 100%;
     background: #181818;
-    display: none;
+    display: none; /* Escondido por padrão */
     justify-content: center;
     align-items: center;
     padding-top: 1.2rem;
@@ -15,7 +18,7 @@
     border-bottom: 1px solid rgba(212, 175, 55, 0.12);
 }
 
-.logo-header img {
+.fixed-top-logo img {
     width: 180px;
     height: auto;
     max-width: 60vw;
@@ -24,27 +27,37 @@
     margin: 0 auto;
 }
 
-/* Mostra no mobile, esconde no desktop */
+/* Variáveis de altura para referência no mobile */
+/* Logo Height: 66px */
+/* Nav Height: 48px */
+
 @media (max-width: 800px) {
-    .logo-header {
+    /* Mostra o logotipo fixo no mobile */
+    .fixed-top-logo {
         display: flex;
     }
+    
+    /* Move a navbar para baixo da logo fixa (66px) */
     nav {
-        /* A altura do logo-header (que é 66px no mobile) é usada aqui para que o nav comece ABAIXO dele */
-        top: 66px; 
+        top: 66px !important; 
+        min-height: 48px !important; /* Assegura a altura da nav */
     }
+
     /* Oculta a logo que fica dentro da navbar no mobile */
     nav .nav-logo {
         display: none !important;
     }
+    
     /* Ajusta padding topo para hero não ficar atrás da logo e nav fixos no mobile */
-    /* Altura combinada do logo-header + nav (aprox 66px + 48px) + um pouco de margem (5.5rem = ~88px) */
+    /* Altura combinada do fixed-top-logo (66px) + nav (48px) + margem */
+    /* 114px = 7.125rem. Usando 8.5rem para um espaçamento melhor. */
     .hero {
         padding-top: 8.5rem !important; 
     }
 }
 @media (min-width: 801px) {
-    .logo-header {
+    /* Esconde o logotipo fixo no desktop */
+    .fixed-top-logo {
         display: none !important;
     }
     nav .nav-logo { display: flex !important; }
@@ -56,7 +69,6 @@
         padding-top: 7rem !important; /* Valor padrão de desktop */
     }
 }
-
 
 /* O RESTANTE DE TODO O SEU CSS ORIGINAL AQUI, INCLUINDO AS QUERIES E REGULARIZAÇÕES. */
 
@@ -205,7 +217,7 @@ nav.scrolled .nav-logo img {
     flex-shrink: 0;
 }
 
-/* Logo centralizada só no mobile (ESTRUTURA ANTIGA, PREFERÊNCIA PARA .logo-header) */
+/* Logo centralizada só no mobile (ESTRUTURA ANTIGA, PREFERÊNCIA PARA .fixed-top-logo) */
 .nav-logo-mobile {
     display: none;
 }
@@ -217,7 +229,7 @@ nav.scrolled .nav-logo img {
     object-fit: contain;
 }
 
-/* RESPONSIVO NAVBAR (Modificado para usar .logo-header) */
+/* RESPONSIVO NAVBAR (Modificado para usar .fixed-top-logo) */
 @media (max-width: 768px) {
     /* Otimização da navbar no mobile */
     nav {
@@ -934,10 +946,10 @@ footer {
         padding: 4rem 0;
     }
     
-    /* MUDANÇA: Altura mínima menor e padding de topo mais ajustado no Hero */
+    /* MUDANÇA: Altura mínima menor no Hero */
     .hero {
         min-height: 70vh; /* Diminui para caber mais na tela inicial */
-        /* padding-top: 8rem; - Ajustado no bloco de logo-header */
+        /* padding-top: 8rem; - Ajustado no bloco do fixed-top-logo */
     }
 
     /* Navegação - OTIMIZAÇÃO: Já ajustada para ficar abaixo da logo */
